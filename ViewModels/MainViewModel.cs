@@ -6,6 +6,7 @@ using StoryNotes.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -67,12 +68,12 @@ namespace StoryNotes.ViewModels
                     ((RelayCommand)DeleteStoryCommand).RaiseCanExecuteChanged();
                     FilterCharacters();
 
-                    SelectedStory.Characters.CollectionChanged += (s, e) => SelectedStory.IsChanged = true;
-                    SelectedStory.StorySegments.CollectionChanged += (s,e) => SelectedStory.IsChanged = true;
+                    SelectedStory.Characters.CollectionChanged += MarkStoryChanged;
+                    SelectedStory.StorySegments.CollectionChanged += MarkStoryChanged;
                     foreach(StorySegment storySegment in selectedStory.StorySegments)
                     {
-                        storySegment.PropertyChanged += (s, e) => SelectedStory.IsChanged = true;
-                        storySegment.ChildChanged += (s, e) => SelectedStory.IsChanged = true;
+                        storySegment.PropertyChanged += MarkStoryChanged;
+                        storySegment.ChildChanged += MarkStoryChanged;
                     }
                     SelectedStory.IsChanged = false;
                 }
@@ -282,7 +283,10 @@ namespace StoryNotes.ViewModels
             }
         }
         private bool CanDeleteCharacter() => SelectedCharacter != null;
-
+        private void MarkStoryChanged(object sender, EventArgs e)
+        {
+            SelectedStory.IsChanged = true;
+        }
         public MainViewModel()
         {
             PopulateData();

@@ -66,9 +66,9 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Text="Title" Style="{StaticResource BaseTextBlockStyle}"/>
-                <TextBox Grid.Row="1" Text="{Binding ElementName=treeView, Path=SelectedItem.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Grid.Row="1" Text="{Binding ElementName=treeView, Path=SelectedItem.Title, Mode=TwoWay}"/>
                 <TextBlock Grid.Row="2" Text="Segment Summary" Style="{StaticResource BaseTextBlockStyle}"/>
-                <TextBox Grid.Row="3" Text="{Binding ElementName=treeView, Path=SelectedItem.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                <TextBox Grid.Row="3" Text="{Binding ElementName=treeView, Path=SelectedItem.Description, Mode=TwoWay}"
                          AcceptsReturn="True"
                          TextWrapping="Wrap"/>
             </Grid>
